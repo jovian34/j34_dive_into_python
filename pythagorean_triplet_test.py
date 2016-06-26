@@ -25,59 +25,53 @@ On the other hand, (6, 8, 10), although a pythagorean triplet, is not primative
 since 2 divides all three components.
 
 '''
-import square_root
 
 def create_possible_triplets(min, max):
     '''
 
-    :return: list of lists
+    :param min: integer
+    :param max: integer at least 2 greater than min
+    :return: a list of tuples each with 3 integers in ascending value
     '''
 
-    possible_triplets = []
-    for i in range(min, max -1):
-        for j in range(min +1, max):
-            if j > i:
-                for k in range(min +2, max +1):
-                    if k > j and i:
-                        triplet = (i,j,k)
-                        possible_triplets.append(triplet)
-    return possible_triplets
-
-def create_possible_triplets_comp(min, max):
-    possible_triplets_comp = [ (i,j,k) for k in range(min + 2,max +1)
+    possible_triplets = [ (i,j,k) for k in range(min + 2,max +1)
                                for j in range(min + 1, max)
                                for i in range(min, max - 1)
                                if j > i if k > j and i]
-    return possible_triplets_comp
+    return possible_triplets
 
 
 def triplets_in_range(min, max):
-    '''
-    :param min: integer
-    :param max: integer
-    :return: list of lists
-
-    '''
+    possible_triplets = create_possible_triplets(min, max)
+    triplets = [ trip for trip in possible_triplets
+                 if trip[0] ** 2 + trip[1] ** 2 == trip[2] ** 2 ]
+    return triplets
 
 def primative_triplets(b):
     pass
 
+def get_inputs():
+    try:
+        min = input('What is the minimum number? ')
+        min = int(min)
+        max = input(' What is the maximum number? ')
+        max = int(max)
+    except TypeError:
+        print('You must enter a positive whole number.')
+        get_inputs()
+    if min < 1:
+        raise ValueError
+        print('Minimum must be a whole number of at least 1.')
+        get_inputs()
+    if max <= min + 1:
+        raise ValueError
+        print('Maximum must be at least 2 greater than the minimum.')
+        get_inputs()
+    return (min, max)
+
+def main():
+    min, max = get_inputs()
+    print(triplets_in_range(min, max))
+
 if __name__ == '__main__':
-    a = create_possible_triplets(1, 10)
-    b = create_possible_triplets_comp(1, 10)
-    result = True
-    for i in range(len(a)):
-        if a[i] not in b:
-            result = False
-            print(a[i], ' and ', b[i])
-        elif b[i] not in a:
-            result = False
-            print(b[i], ' and ', a[i])
-    if len(a) == len(b):
-        print('They are the same length')
-    if result == True:
-        print('They are the same')
-    else:
-        print('They are not the same')
-    #print(a)
-    #print(b)
+    main()
