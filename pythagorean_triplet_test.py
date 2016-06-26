@@ -107,24 +107,27 @@ def get_inputs():
         max = int(max)
         b = input('Please enter a whole number divisible by 4: ')
         b = int(b)
-    except TypeError:
+    except ValueError:
         print('You must enter a positive whole number.')
-        get_inputs()
+        return get_inputs()
     if min < 1:
-        raise ValueError
-        print('Minimum must be a whole number of at least 1.')
-        get_inputs()
+        print("Minimum must be a whole number of at least 1.")
+        return get_inputs()
     if max <= min + 1:
-        raise ValueError
         print('Maximum must be at least 2 greater than the minimum.')
-        get_inputs()
+        return get_inputs()
     if b % 4 != 0:
-        raise ValueError
         print('The third input must be divisible by 4 (example: 16).')
-        get_inputs()
+        return get_inputs()
     return (min, max, b)
 
 def main():
+    '''
+
+    :return: None
+
+    This is the main program
+    '''
     min, max, b = get_inputs()
     triplets = triplets_in_range(min, max)
     prim_triplets = primative_triplets(triplets, b)
