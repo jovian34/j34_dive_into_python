@@ -42,20 +42,71 @@ def create_possible_triplets(min, max):
 
 
 def triplets_in_range(min, max):
+    '''
+
+    :param min: integer
+    :param max: integer at least 2 greater than min
+    :return: a list of tuples each with 3 integers in ascending value
+        these tuples are all pythagorean triplets
+    '''
+
     possible_triplets = create_possible_triplets(min, max)
     triplets = [ trip for trip in possible_triplets
                  if trip[0] ** 2 + trip[1] ** 2 == trip[2] ** 2 ]
     return triplets
 
-def primative_triplets(b):
-    pass
+def all_factors(x):
+    '''
+
+    :param x: integer
+    :return: list of all possible factors
+    '''
+
+    return [factor for factor in range(2, int(x / 2) + 1) if x % factor == 0]
+
+def is_primative_triplet(triplet):
+    '''
+
+    :param triplet: tuple of ascending integers that is a pythagorean triplet
+    :return: Boolean
+    '''
+
+    result = True
+    factors = [ all_factors(triplet[i]) for i in range(3)]
+    for factor in factors[0]:
+        if factor in factors[1] and factors[2]:
+            result = False
+    return result
+
+def my_primative_triplets(triplets):
+    '''
+
+    :param triplets: a list of tuples each with 3 integers in ascending value
+        these tuples are all pythagorean triplets
+    :return: a list of tuples each with 3 integers in ascending value
+        these tuples are all primative pythagorean triplets
+    '''
+
+    return [ trip for trip in triplets if is_primative_triplet(trip)]
+
+def primative_triplets(triplets, b):
+    '''
+
+    :param triplets: a list of tuples each with 3 integers in ascending value
+        these tuples are all pythagorean triplets
+    :param b: an integer divisible by 4
+    :return: list of tuples
+    '''
+    return [trip for trip in triplets if b in trip]
 
 def get_inputs():
     try:
         min = input('What is the minimum number? ')
         min = int(min)
-        max = input(' What is the maximum number? ')
+        max = input('What is the maximum number? ')
         max = int(max)
+        b = input('Please enter a whole number divisible by 4: ')
+        b = int(b)
     except TypeError:
         print('You must enter a positive whole number.')
         get_inputs()
@@ -67,11 +118,22 @@ def get_inputs():
         raise ValueError
         print('Maximum must be at least 2 greater than the minimum.')
         get_inputs()
-    return (min, max)
+    if b % 4 != 0:
+        raise ValueError
+        print('The third input must be divisible by 4 (example: 16).')
+        get_inputs()
+    return (min, max, b)
 
 def main():
-    min, max = get_inputs()
-    print(triplets_in_range(min, max))
+    min, max, b = get_inputs()
+    triplets = triplets_in_range(min, max)
+    prim_triplets = primative_triplets(triplets, b)
+    my_prim_triplets = my_primative_triplets(triplets)
+    print(triplets)
+    print('***********************')
+    print(prim_triplets)
+    print('***********************')
+    print(my_prim_triplets)
 
 if __name__ == '__main__':
     main()
