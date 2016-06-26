@@ -70,12 +70,9 @@ if __name__ == '__main__':
         if a[i] not in b:
             result = False
             print(a[i], ' and ', b[i])
-        elif a[i] not in b:
+        elif b[i] not in a:
             result = False
-            print(a[i], ' and ', b[i])
-        elif a[i] not in b:
-            result = False
-            print(a[i], ' and ', b[i])
+            print(b[i], ' and ', a[i])
     if len(a) == len(b):
         print('They are the same length')
     if result == True:
