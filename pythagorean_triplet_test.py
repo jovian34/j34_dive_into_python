@@ -100,6 +100,10 @@ def primative_triplets(triplets, b):
     return [trip for trip in triplets if b in trip]
 
 def get_inputs():
+    '''
+
+    :return: a tuple with 3 integers
+    '''
     try:
         min = input('What is the minimum number? ')
         min = int(min)
