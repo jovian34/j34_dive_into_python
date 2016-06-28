@@ -31,13 +31,14 @@ def create_possible_triplets(min, max):
 
     :param min: integer
     :param max: integer at least 2 greater than min
-    :return: a list of tuples each with 3 integers in ascending value
+    :return: a generator of tuples each with 3 integers in ascending value
     '''
 
-    possible_triplets = [ (i,j,k) for k in range(min + 2,max +1)
+
+    possible_triplets = ( (i,j,k) for k in range(min + 2,max +1)
                                for j in range(min + 1, max)
                                for i in range(min, max - 1)
-                               if j > i if k > j and i]
+                               if j > i if k > j )
     return possible_triplets
 
 
