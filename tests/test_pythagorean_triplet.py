@@ -17,7 +17,22 @@ def test_all_factors_on_a_prime():
     assert result == []
 
 def test_validating_proper_inputs():
-    min, max, b = ('2','9','16')
+    min, max, b = (2,9,16)
     result = pythagorean_triplet.validate_inputs(min,max,b)
-    assert result == (2,9,16)
+    assert result == (True,2,9,16)
+
+def test_validate_negative_min_input_false():
+    min,max,b = (-3,4,32)
+    result = pythagorean_triplet.validate_inputs(min,max,b)
+    assert result[0] == False
+
+def test_validate_lower_max_input_false():
+    min,max,b = (23,22,32)
+    result = pythagorean_triplet.validate_inputs(min,max,b)
+    assert result[0] == False
+
+def test_validate_b_not_divisible_by_four_is_false():
+    min,max,b = (2, 13, 29)
+    result = pythagorean_triplet.validate_inputs(min,max,b)
+    assert result[0] == False
 

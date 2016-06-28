@@ -101,55 +101,75 @@ def primative_triplets(triplets, b):
     return [trip for trip in triplets if b in trip]
 
 
-def get_min_input():
-    return input('What is the minimum number? ')
+def get_inputs():
+    '''
 
-def get_max_input():
-    return input('What is the maximum number? ')
+    :return: 3 user inputs as strings
+    '''
+    min = input('What is the minimum number? ')
+    max =input('What is the maximum number? ')
+    b = input('Please enter a whole number divisible by 4: ')
+    return (min,max,b)
 
-def get_b():
-    return input('Please enter a whole number divisible by 4: ')
-
-
-
-def validate_inputs(min, max, b):
+def convert_to_ints(min,max,b):
     '''
 
     :param min: string of a number
     :param max: string of a number
     :param b: string of a number
-    :return: tuple of integers
+    :return: boolean and three integers
     '''
     try:
         min = int(min)
-    except ValueError:
-        print('You must enter a positive whole number.')
-        main()
-
-    if min < 1:
-        print("Minimum must be a whole number of at least 1.")
-        main()
-
-    try:
         max = int(max)
-    except ValueError:
-        print('You must enter a positive whole number.')
-        main()
-
-    if max <= min + 1:
-        print('Maximum must be at least 2 greater than the minimum.')
-        main()
-
-    try:
         b = int(b)
     except ValueError:
-        print('You must enter a positive whole number.')
-        main()
+        print('Values must be positive whole numbers. ')
+        return(False,min,max,b)
+    return(True,min,max,b)
 
-    if b % 4 != 0:
+def validate_inputs(min, max, b):
+    '''
+
+    :param min: integer
+    :param max: integer
+    :param b: integer
+    :return: tuple of 1 boolean and 3 integers
+    '''
+    result = True
+    if min < 1:
+        print("Minimum must be a whole number of at least 1.")
+        result = False
+    elif max <= min + 1:
+        print('Maximum must be at least 2 greater than the minimum.')
+        result = False
+    elif b % 4 != 0:
         print('The third input must be divisible by 4 (example: 16).')
-        main()
-    return (min, max, b)
+        result = False
+    return result,min,max,b
+
+def process_inputs():
+    '''
+
+    :return: inputs as 3 integers
+
+    This is a recursive function that takes inputs,
+    validates the inputs, and if the inputs are not
+    correct, starts over until the user inputs
+    the correct values.
+    '''
+
+    min,max,b = get_inputs()
+    values = convert_to_ints(min,max,b)
+    if values[0]:
+        min,max,b = values[1],values[2],values[3]
+    else:
+        return process_inputs()
+    values = validate_inputs(min,max,b)
+    if values[0]:
+        return min,max,b
+    else:
+        return process_inputs()
 
 def main():
     '''
@@ -158,8 +178,8 @@ def main():
 
     This is the main program
     '''
-    min, max, b = get_min_input(), get_max_input(), get_b()
-    min, max, b = validate_inputs(min, max, b)
+
+    min, max, b = process_inputs()
     triplets = triplets_in_range(min, max)
     prim_triplets = primative_triplets(triplets, b)
     my_prim_triplets = my_primative_triplets(triplets)
