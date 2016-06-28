@@ -99,30 +99,55 @@ def primative_triplets(triplets, b):
     '''
     return [trip for trip in triplets if b in trip]
 
-def get_inputs():
+
+def get_min_input():
+    return input('What is the minimum number? ')
+
+def get_max_input():
+    return input('What is the maximum number? ')
+
+def get_b():
+    return input('Please enter a whole number divisible by 4: ')
+
+
+
+def validate_inputs(min, max, b):
     '''
 
-    :return: a tuple with 3 integers
+    :param min: string of a number
+    :param max: string of a number
+    :param b: string of a number
+    :return: tuple of integers
     '''
     try:
-        min = input('What is the minimum number? ')
         min = int(min)
-        max = input('What is the maximum number? ')
+    except ValueError:
+        print('You must enter a positive whole number.')
+        main()
+
+    if min < 1:
+        print("Minimum must be a whole number of at least 1.")
+        main()
+
+    try:
         max = int(max)
-        b = input('Please enter a whole number divisible by 4: ')
+    except ValueError:
+        print('You must enter a positive whole number.')
+        main()
+
+    if max <= min + 1:
+        print('Maximum must be at least 2 greater than the minimum.')
+        main()
+
+    try:
         b = int(b)
     except ValueError:
         print('You must enter a positive whole number.')
-        return get_inputs()
-    if min < 1:
-        print("Minimum must be a whole number of at least 1.")
-        return get_inputs()
-    if max <= min + 1:
-        print('Maximum must be at least 2 greater than the minimum.')
-        return get_inputs()
+        main()
+
     if b % 4 != 0:
         print('The third input must be divisible by 4 (example: 16).')
-        return get_inputs()
+        main()
     return (min, max, b)
 
 def main():
@@ -132,7 +157,8 @@ def main():
 
     This is the main program
     '''
-    min, max, b = get_inputs()
+    min, max, b = get_min_input(), get_max_input(), get_b()
+    min, max, b = validate_inputs(min, max, b)
     triplets = triplets_in_range(min, max)
     prim_triplets = primative_triplets(triplets, b)
     my_prim_triplets = my_primative_triplets(triplets)
