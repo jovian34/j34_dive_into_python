@@ -1,6 +1,9 @@
 __author__ = 'Carl James'
 
 '''
+commands needed to execute these tests:
+pip install pytest
+pip install pytest-cov
 python -m pytest --assert=plain --cov-report term-missing --cov pythagorean_triplet.py
 '''
 
