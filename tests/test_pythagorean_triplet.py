@@ -9,6 +9,49 @@ python -m pytest --assert=plain --cov-report term-missing --cov pythagorean_trip
 
 from .. import pythagorean_triplet
 
+def test_create_triplets_yields_triplets_start():
+    trip_gen = pythagorean_triplet.create_possible_triplets(2,10)
+    result = next(trip_gen)
+    assert result == (2,3,4)
+
+def test_create_triplets_yields_triplets_end():
+    trip_gen = pythagorean_triplet.create_possible_triplets(2,103)
+    result = []
+    for trip in trip_gen:
+        result.append(trip)
+    assert result[-1] == (101,102,103)
+
+def test_create_triplets_yields_more_than_range():
+    trip_gen = pythagorean_triplet.create_possible_triplets(2, 103)
+    result = []
+    for trip in trip_gen:
+        result.append(trip)
+    assert len(result) > 100
+
+def test_triplet_filtered_out():
+    trip_gen = pythagorean_triplet.triplets_in_range(2, 103)
+    result = []
+    for trip in trip_gen:
+        result.append(trip)
+    assert (3,4,6) not in result
+
+def test_triplet_filtered_in():
+    trip_gen = pythagorean_triplet.triplets_in_range(2, 103)
+    result = []
+    for trip in trip_gen:
+        result.append(trip)
+    assert (3,4,5) in result
+
+def test_is_primative_triplet_true():
+    triplet = (3,4,5)
+    assert pythagorean_triplet.is_primative_triplet(triplet)
+
+def test_is_primative_triplet_false():
+    triplet = (6,8,10)
+    assert not pythagorean_triplet.is_primative_triplet(triplet)
+
+
+
 def test_all_factors_with_many_factors():
     test_input = 30
     result = pythagorean_triplet.all_factors(test_input)
