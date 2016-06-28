@@ -52,8 +52,8 @@ def triplets_in_range(min, max):
     '''
 
     possible_triplets = create_possible_triplets(min, max)
-    triplets = ( trip for trip in possible_triplets
-                 if trip[0] ** 2 + trip[1] ** 2 == trip[2] ** 2 )
+    triplets = [ trip for trip in possible_triplets
+                 if trip[0] ** 2 + trip[1] ** 2 == trip[2] ** 2 ]
     return triplets
 
 def all_factors(x):
@@ -88,7 +88,7 @@ def my_primative_triplets(triplets):
         these tuples are all primative pythagorean triplets
     '''
 
-    return [ trip for trip in triplets if is_primative_triplet(trip)]
+    return [trip for trip in triplets if is_primative_triplet(trip)]
 
 def primative_triplets(triplets, b):
     '''
