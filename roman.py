@@ -21,6 +21,8 @@ There is no way to represent 0 in Roman numerals.
 There is no way to represent negative numbers in Roman numerals.
 There is no way to represent fractions or non-integer numbers in Roman numerals.
 
+Below is Carl James' solutions before looking up how the author solved this problem.
+
 """
 
 roman_map = {
@@ -56,6 +58,11 @@ roman_map = {
     3000: 'MMM'}
 
 def to_roman(integer):
+    '''
+
+    :param integer: an integer between 1 and 3999
+    :return: a string
+    '''
     if type(integer) != int:
         raise TypeError
     if integer < 1 or integer > 3999:
@@ -77,4 +84,9 @@ def to_roman(integer):
         return result + roman_map[ones]
 
 def from_roman(roman):
+    '''
+
+    :param roman: a string formatted as a Roman numeral
+    :return: an intger
+    '''
     pass
