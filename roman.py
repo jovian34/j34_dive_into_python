@@ -23,8 +23,58 @@ There is no way to represent fractions or non-integer numbers in Roman numerals.
 
 """
 
+roman_map = {
+    1: 'I',
+    2: 'II',
+    3: 'III',
+    4: 'IV',
+    5: 'V',
+    6: 'VI',
+    7: 'VII',
+    8: 'VIII',
+    9: 'IX',
+    10: 'X',
+    20: 'XX',
+    30: 'XXX',
+    40: 'XL',
+    50: 'L',
+    60: 'LX',
+    70: 'LXX',
+    80: 'LXXX',
+    90: 'XC',
+    100: 'C',
+    200: 'CC',
+    300: 'CCC',
+    400: 'CD',
+    500: 'D',
+    600: 'DC',
+    700: 'DCC',
+    800: 'DCCC',
+    900: 'CM',
+    1000: 'M',
+    2000: 'MM',
+    3000: 'MMM'}
+
 def to_roman(integer):
-    pass
+    if type(integer) != int:
+        raise TypeError
+    if integer < 1 or integer > 3999:
+        raise ValueError
+    else:
+        chars = str(integer)
+        chars = [ char for char in chars ]
+        result = ''
+        if len(chars) > 3:
+            mill = int(chars[-4]) * 1000
+            result = result + roman_map[mill]
+        if len(chars) > 2:
+            cent = int(chars[-3]) * 100
+            result = result + roman_map[cent]
+        if len(chars) > 1:
+            tens = int(chars[-2]) * 10
+            result = result + roman_map[tens]
+        ones = int(chars[-1])
+        return result + roman_map[ones]
 
 def from_roman(roman):
     pass
