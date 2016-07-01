@@ -25,7 +25,10 @@ Below is Carl James' solutions before looking up how the author solved this prob
 
 """
 
+import re
+
 roman_map = {
+    0: '',
     1: 'I',
     2: 'II',
     3: 'III',
@@ -57,6 +60,19 @@ roman_map = {
     2000: 'MM',
     3000: 'MMM'}
 
+#verbose pattern from http://www.diveintopython3.net/regular-expressions.html#romannumerals
+pattern = '''
+    ^                   # beginning of string
+    (M{0,3})            # thousands - 0 to 3 Ms
+    (CM|CD|D?C{0,3})    # hundreds - 900 (CM), 400 (CD), 0-300 (0 to 3 Cs),
+                        #            or 500-800 (D, followed by 0 to 3 Cs)
+    (XC|XL|L?X{0,3})    # tens - 90 (XC), 40 (XL), 0-30 (0 to 3 Xs),
+                        #        or 50-80 (L, followed by 0 to 3 Xs)
+    (IX|IV|V?I{0,3})    # ones - 9 (IX), 4 (IV), 0-3 (0 to 3 Is),
+                        #        or 5-8 (V, followed by 0 to 3 Is)
+    $                   # end of string
+    '''
+
 def to_roman(integer):
     '''
 
@@ -87,6 +103,16 @@ def from_roman(roman):
     '''
 
     :param roman: a string formatted as a Roman numeral
-    :return: an intger
+    :return: an integer
     '''
-    pass
+    roman = roman.upper()
+    process_regex = re.compile(pattern, re.VERBOSE)
+    parts = process_regex.match(roman)
+    if parts == None:
+        raise ValueError('Not a valid Roman Numeral.')
+    integer_map = { value: key for key, value in roman_map.items() }
+    result = integer_map[parts.group(1)]
+    result = result + integer_map[parts.group(2)]
+    result = result + integer_map[parts.group(3)]
+    result = result + integer_map[parts.group(4)]
+    return result

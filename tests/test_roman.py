@@ -41,8 +41,6 @@ def test_to_roman_value_error_high_number():
     with pytest.raises(ValueError):
         roman.to_roman(4000)
 
-
-
 def test_from_roman_returns_1994():
     assert roman.from_roman('MCMXCIV') == 1994
 
@@ -57,3 +55,27 @@ def test_from_roman_returns_21():
 
 def test_from_roman_returns_3888():
     assert roman.from_roman('MMMDCCCLXXXVIII') == 3888
+
+def test_from_roman_value_error_4000():
+    with pytest.raises(ValueError):
+        roman.from_roman('MMMM')
+
+def test_from_roman_value_error_bad_roman_format():
+    with pytest.raises(ValueError):
+        roman.from_roman('CCCCLVIII')
+
+def test_from_roman_type_error_int():
+    '''
+    if not a string when roman.upper() method is applied
+    AttributeError is raised, ending the program
+    :return:
+    '''
+    with pytest.raises(AttributeError):
+        roman.from_roman(3526)
+
+def test_from_roman_valid_lowercase():
+    assert roman.from_roman('mcmxcviii') == 1998
+
+def test_from_roman_valid_mixedcase():
+    assert roman.from_roman('MmxcVi') == 2096
+
