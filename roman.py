@@ -61,6 +61,7 @@ roman_map = {
     3000: 'MMM'}
 
 #verbose pattern from http://www.diveintopython3.net/regular-expressions.html#romannumerals
+#I added parens around the thousands to get a group to use in from_roman()
 pattern = '''
     ^                   # beginning of string
     (M{0,3})            # thousands - 0 to 3 Ms
@@ -116,3 +117,23 @@ def from_roman(roman):
     result = result + integer_map[parts.group(3)]
     result = result + integer_map[parts.group(4)]
     return result
+
+def from_user_input():
+    print('This program converts Whole Numbers to Roman Numerals and vice versa.')
+    print('Do you want to:')
+    print('1) Convert a Whole Number to a Roman Numeral? ')
+    print('2) Convert a Roman Numeral to a Whole Number? ')
+    choice = input(' Type "1" or "2" : ')
+    if choice == '1':
+        number = input('What whole number? ')
+        number = int(number)
+        print(to_roman(number))
+    elif choice == '2':
+        numeral = input('What Roman numeral? ')
+        print(from_roman(numeral))
+    else:
+        print('That is not a valid choice. Try again.')
+        return from_user_input()
+
+if __name__ == '__main__':
+    from_user_input()

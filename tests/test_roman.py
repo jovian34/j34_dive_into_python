@@ -78,4 +78,3 @@ def test_from_roman_valid_lowercase():
 
 def test_from_roman_valid_mixedcase():
     assert roman.from_roman('MmxcVi') == 2096
-
