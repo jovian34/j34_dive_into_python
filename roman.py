@@ -64,9 +64,9 @@ def to_roman(integer):
     :return: a string
     '''
     if type(integer) != int:
-        raise TypeError
+        raise TypeError('Argument must be a whole number.')
     if integer < 1 or integer > 3999:
-        raise ValueError
+        raise ValueError('Number must be between 1 and 3999.')
     else:
         chars = str(integer)
         chars = [ char for char in chars ]

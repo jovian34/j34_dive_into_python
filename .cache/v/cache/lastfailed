@@ -1,6 +1,7 @@
 {
   "tests/test_roman.py::test_from_roman_returns_1994": true,
   "tests/test_roman.py::test_from_roman_returns_21": true,
+  "tests/test_roman.py::test_from_roman_returns_3888": true,
   "tests/test_roman.py::test_from_roman_returns_3999": true,
   "tests/test_roman.py::test_from_roman_returns_449": true
 }
